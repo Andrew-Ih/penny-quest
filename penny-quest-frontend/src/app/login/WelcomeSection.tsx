@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WelcomePage = () => {
+export default function WelcomeSection() {
   return (
     <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-teal-500 to-blue-600 items-center justify-center p-12 relative overflow-hidden">
         <div 
@@ -43,5 +43,3 @@ const WelcomePage = () => {
       </div>
   )
 }
-
-export default WelcomePage
