@@ -1,15 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-
+import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { useTheme, type Theme } from '../contexts/ThemeContext';
 import { useSidebar } from '../contexts/SidebarContext';
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { isCollapsed, setIsCollapsed } = useSidebar();
+
+  const handleLogout = () => {
+    router.push('/login');
+  };
 
   const menuItems = [
     { href: '/dashboard', label: 'Overview', icon: '📊' },
@@ -20,7 +25,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className={`ws-card transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} h-screen fixed rounded-none border-l-0 border-t-0 border-b-0`}>
+    <div className={`ws-card transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} h-screen fixed rounded-none border-l-0 border-t-0 border-b-0 flex flex-col`}>
       <div className="p-6">
         <div className="flex items-center justify-between">
           {!isCollapsed && <h1 className="text-xl font-semibold" style={{color: 'var(--text-primary)'}}>Penny Quest</h1>}
@@ -48,7 +53,7 @@ export default function Sidebar() {
         )}
       </div>
       
-      <nav className="px-3">
+      <nav className="px-3 flex-1">
         {menuItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -71,6 +76,19 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      
+      {!isCollapsed && (
+        <div className="px-6 pb-6">
+          <button
+            onClick={handleLogout}
+            className="flex items-center px-3 py-3 rounded-lg transition-all duration-200 hover:bg-gray-50 w-full text-left"
+            style={{color: 'var(--text-secondary)'}}
+          >
+            <span className="text-lg">🚪</span>
+            <span className="ml-3 text-sm">Logout</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

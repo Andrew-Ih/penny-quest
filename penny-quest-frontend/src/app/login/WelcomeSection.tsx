@@ -1,8 +1,15 @@
 import React from 'react'
+import { useTheme } from '../contexts/ThemeContext';
 
 export default function WelcomeSection() {
+  const { theme } = useTheme();
+  
+  const gradientClass = theme === 'dark' 
+    ? 'bg-gradient-to-br from-gray-800 to-gray-900' 
+    : 'bg-gradient-to-br from-teal-500 to-blue-600';
+    
   return (
-    <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-teal-500 to-blue-600 items-center justify-center p-12 relative overflow-hidden">
+    <div className={`hidden lg:flex lg:w-1/2 ${gradientClass} items-center justify-center p-12 relative overflow-hidden`}>
         <div 
           className="absolute inset-0 opacity-20"
           style={{
